@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Worksheet - Wheel & Axle Investigation Lab</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: #fff; }
+    .sheet { max-width: 920px; margin: 0 auto; padding: 2rem; }
+    .sheet h1 { font-size: 1.8rem; }
+    .sheet h2 { margin-top: 1.6rem; border-top: 2px solid var(--line); padding-top: 1rem; }
+    .meta { display: grid; grid-template-columns: 1.4fr 0.8fr 0.8fr; gap: 1rem; margin: 1rem 0; }
+    .line { border-bottom: 1px solid var(--ink); min-height: 1.8rem; }
+    .question { margin: 1.1rem 0; }
+    .answer-lines { display: grid; gap: 1rem; margin-top: 0.75rem; }
+    .answer-lines span { border-bottom: 1px solid var(--ink); min-height: 1.4rem; }
+    .print-actions { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+    .blank-box { height: 9rem; border: 1px solid var(--line); border-radius: 6px; }
+    .sheet table { min-width: 0; }
+    @media print {
+      .print-actions { display: none; }
+      .sheet { padding: 0; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <div class="print-actions">
+      <a href="index.html">Back to simulation</a>
+      <button class="action-button primary" onclick="window.print()">Print worksheet</button>
+    </div>
+
+    <h1>Wheel & Axle Investigation Lab - Student Worksheet</h1>
+    <p><strong>Simulation:</strong> <span id="simulationUrl">Open the GitHub Pages link from your teacher.</span></p>
+
+    <div class="meta">
+      <div>Name <div class="line"></div></div>
+      <div>Class <div class="line"></div></div>
+      <div>Date <div class="line"></div></div>
+    </div>
+
+    <h2>Remember and Understand</h2>
+
+    <div class="question">
+      <p><strong>Q1 - Complete the sentences (3 marks)</strong></p>
+      <p>The __________________ is the rod or shaft attached to the centre of a wheel. The wheel and axle turn __________________. When effort is applied to the larger wheel, the system can act as a __________________ multiplier.</p>
+    </div>
+
+    <div class="question">
+      <p><strong>Q2 - Select the correct answer (1 mark)</strong></p>
+      <p>Why can a circular doorknob act as a force multiplier?</p>
+      <p>A. A small effort on the axle turns a larger wheel.<br>
+      B. A small effort on the handle produces a larger force at the axle.<br>
+      C. The doorknob makes the door lighter.<br>
+      D. The doorknob creates extra energy.</p>
+      <p>Answer: ______</p>
+    </div>
+
+    <div class="question">
+      <p><strong>Q3 - Label the model (4 marks)</strong></p>
+      <p>Open Force Lab. Sketch the model and label wheel, axle, effort force and load/resistance force.</p>
+      <div class="blank-box"></div>
+    </div>
+
+    <div class="question">
+      <p><strong>Q4 - Predict (2 marks)</strong></p>
+      <p>Keep the axle and load the same. If the wheel radius is increased:</p>
+      <div class="answer-lines">
+        <span>a. The required effort force will</span>
+        <span>b. The distance travelled by the point where effort is applied will</span>
+      </div>
+    </div>
+
+    <h2>Apply and Analyse - Investigation 1: Force Multiplier</h2>
+    <p><strong>Fair-test setup:</strong> Select Force Lab. Set axle radius to 2 cm, load to 60 N and run length to 1 turn. Lock those settings and change only the wheel radius.</p>
+
+    <div class="question">
+      <p><strong>Q5 - Record your observations (6 marks)</strong></p>
+      <table>
+        <thead><tr><th>Trial</th><th>Wheel radius</th><th>Force ratio</th><th>Required effort</th><th>Wheel-rim distance</th><th>Axle/load distance</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>4 cm</td><td></td><td>N</td><td>cm</td><td>cm</td></tr>
+          <tr><td>2</td><td>8 cm</td><td></td><td>N</td><td>cm</td><td>cm</td></tr>
+          <tr><td>3</td><td>12 cm</td><td></td><td>N</td><td>cm</td><td>cm</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="question">
+      <p><strong>Q6 - Describe the pattern (2 marks)</strong></p>
+      <p>As wheel radius increased, what happened to the required effort force? Use two numbers from your results.</p>
+      <div class="answer-lines"><span></span><span></span></div>
+    </div>
+
+    <div class="question">
+      <p><strong>Q7 - Explain the trade-off (2 marks)</strong></p>
+      <p>It is said that "you don't get anything for nothing". Explain how your force-lab data support this statement.</p>
+      <div class="answer-lines"><span></span><span></span></div>
+    </div>
+
+    <h2>Apply and Analyse - Investigation 2: Speed Multiplier</h2>
+    <p><strong>Fair-test setup:</strong> Select Speed Lab. Set axle radius to 2 cm, input rate to 1 rotation per second and run time to 1 second. Lock those settings and change only the wheel radius.</p>
+
+    <div class="question">
+      <p><strong>Q8 - Record your observations (6 marks)</strong></p>
+      <table>
+        <thead><tr><th>Trial</th><th>Wheel radius</th><th>Axle rotations</th><th>Wheel rotations</th><th>Axle speed</th><th>Wheel-rim speed</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>4 cm</td><td></td><td></td><td>cm/s</td><td>cm/s</td></tr>
+          <tr><td>2</td><td>8 cm</td><td></td><td></td><td>cm/s</td><td>cm/s</td></tr>
+          <tr><td>3</td><td>12 cm</td><td></td><td></td><td>cm/s</td><td>cm/s</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="question">
+      <p><strong>Q9 - Select the correct explanation (1 mark)</strong></p>
+      <p>Why is a motor-driven ceiling fan a speed multiplier?</p>
+      <p>A. The motor turns the axle, and the outer edge of the blades travels a greater distance in the same time.<br>
+      B. The blades complete more rotations than the axle even though they are attached.<br>
+      C. The effort is applied to the blade tips, making the axle move farther.<br>
+      D. The fan creates energy as the blades become longer.</p>
+      <p>Answer: ______</p>
+    </div>
+
+    <div class="question">
+      <p><strong>Q10 - True or false, then correct the statement (2 marks)</strong></p>
+      <p>"In one second, a larger wheel completes more rotations than its attached axle."</p>
+      <p>True / False: __________</p>
+      <div class="answer-lines"><span>Correction:</span><span></span></div>
+    </div>
+
+    <h2>Evaluate and Create</h2>
+
+    <div class="question">
+      <p><strong>Q11 - Apply the idea (2 marks)</strong></p>
+      <p>If a steering wheel is difficult to turn, should it be replaced with a larger or smaller steering wheel? Explain why.</p>
+      <div class="answer-lines"><span></span><span></span></div>
+    </div>
+
+    <div class="question">
+      <p><strong>Q12 - Classify the devices (4 marks)</strong></p>
+      <p>Place each use in the correct group: turning a screwdriver handle, turning a doorknob, turning a steering wheel, a motor turning a ceiling-fan axle.</p>
+      <table>
+        <thead><tr><th>Force multiplier</th><th>Speed multiplier</th></tr></thead>
+        <tbody><tr><td style="height: 5rem"></td><td></td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="question">
+      <p><strong>Q13 - Design challenge (4 marks)</strong></p>
+      <p>A doorknob must overcome a 60 N resistance at an axle with radius 2 cm. A person can apply at most 12 N. Available wheel radii are 4, 6, 8, 10 and 12 cm.</p>
+      <p>a. What is the smallest wheel radius that works? ______ cm</p>
+      <div class="answer-lines"><span>b. Evidence 1:</span><span>Evidence 2:</span></div>
+    </div>
+
+    <div class="question">
+      <p><strong>Q14 - Create (4 marks)</strong></p>
+      <p>Design a wheel-and-axle device for opening a stiff valve, moving lots of air, or steering a small vehicle. State where effort is applied, choose radii from the simulation, and explain one benefit and one disadvantage.</p>
+      <div class="answer-lines"><span>Task:</span><span>Effort applied to:</span><span>Wheel radius and axle radius:</span><span>Benefit:</span><span>Disadvantage or trade-off:</span></div>
+    </div>
+
+    <h2>Exit Response</h2>
+    <p>In one sentence, explain how a wheel and axle can make a task easier without making the work disappear.</p>
+    <div class="answer-lines"><span></span><span></span></div>
+  </main>
+
+  <script>
+    const currentUrl = new URL("index.html", window.location.href);
+    document.getElementById("simulationUrl").textContent = currentUrl.href;
+  </script>
+</body>
+</html>

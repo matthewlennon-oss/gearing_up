@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wheel & Axle Investigation Lab</title>
+  <meta name="description" content="A Year 7 static browser simulation for investigating wheels and axles as force and speed multipliers.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to simulation</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <p class="eyebrow">Year 7 simple machines</p>
+        <h1>Wheel & Axle Investigation Lab</h1>
+      </div>
+    </div>
+    <nav class="resource-links" aria-label="Lesson resources">
+      <a href="lesson.html">Lesson page</a>
+      <a href="worksheet.html">Student worksheet</a>
+      <a href="teacher-guide.html">Teacher guide</a>
+      <a href="README.md">Repo notes</a>
+    </nav>
+  </header>
+
+  <main id="main" class="app-shell">
+    <section class="controls panel" aria-labelledby="controls-title">
+      <div class="panel-heading">
+        <p class="eyebrow">Investigation controls</p>
+        <h2 id="controls-title">Set up a fair test</h2>
+      </div>
+
+      <fieldset class="control-group">
+        <legend>Lab mode</legend>
+        <div class="segmented" role="tablist" aria-label="Lab mode">
+          <button class="seg-button is-active" type="button" data-mode="force">Force Lab</button>
+          <button class="seg-button" type="button" data-mode="speed">Speed Lab</button>
+          <button class="seg-button" type="button" data-mode="challenge">Challenge</button>
+        </div>
+      </fieldset>
+
+      <fieldset class="control-group">
+        <legend>Effort applied to</legend>
+        <div class="choice-row">
+          <label><input type="radio" name="effort" value="wheel" checked> Wheel</label>
+          <label><input type="radio" name="effort" value="axle"> Axle</label>
+        </div>
+      </fieldset>
+
+      <div class="slider-group">
+        <label for="wheelRadius">Wheel radius <output id="wheelRadiusValue" for="wheelRadius">8 cm</output></label>
+        <input id="wheelRadius" type="range" min="4" max="12" step="2" value="8" list="wheelRadiusTicks">
+        <datalist id="wheelRadiusTicks">
+          <option value="4" label="4"></option>
+          <option value="6" label="6"></option>
+          <option value="8" label="8"></option>
+          <option value="10" label="10"></option>
+          <option value="12" label="12"></option>
+        </datalist>
+      </div>
+
+      <div class="slider-group">
+        <label for="axleRadius">Axle radius <output id="axleRadiusValue" for="axleRadius">2 cm</output></label>
+        <input id="axleRadius" type="range" min="1" max="4" step="1" value="2">
+      </div>
+
+      <div class="slider-group" data-panel="force challenge">
+        <label for="loadForce">Load/resistance <output id="loadForceValue" for="loadForce">60 N</output></label>
+        <input id="loadForce" type="range" min="20" max="80" step="20" value="60">
+      </div>
+
+      <div class="slider-group" data-panel="force challenge">
+        <label for="turns">Run length <output id="turnsValue" for="turns">1 turn</output></label>
+        <input id="turns" type="range" min="1" max="3" step="1" value="1">
+      </div>
+
+      <div class="slider-group" data-panel="speed">
+        <label for="inputRate">Input rate <output id="inputRateValue" for="inputRate">1 rps</output></label>
+        <input id="inputRate" type="range" min="0.5" max="2" step="0.5" value="1">
+      </div>
+
+      <div class="slider-group" data-panel="speed">
+        <label for="seconds">Run time <output id="secondsValue" for="seconds">1 s</output></label>
+        <input id="seconds" type="range" min="1" max="5" step="1" value="1">
+      </div>
+
+      <fieldset class="control-group locks" data-panel="force challenge">
+        <legend>Variable locks</legend>
+        <label><input id="lockAxle" type="checkbox"> Axle radius</label>
+        <label><input id="lockLoad" type="checkbox"> Load and run length</label>
+      </fieldset>
+
+      <fieldset class="control-group locks" data-panel="speed">
+        <legend>Variable locks</legend>
+        <label><input id="lockSpeedAxle" type="checkbox"> Axle radius</label>
+        <label><input id="lockRateTime" type="checkbox"> Rate and time</label>
+      </fieldset>
+
+      <div class="toggle-grid">
+        <label><input id="showLabels" type="checkbox" checked> Labels</label>
+        <label><input id="showCalculations" type="checkbox"> Calculations</label>
+        <label><input id="reducedMotion" type="checkbox"> Step motion</label>
+      </div>
+    </section>
+
+    <section class="stage-section" aria-labelledby="stage-title">
+      <div class="investigation-strip">
+        <div>
+          <p class="eyebrow" id="modeEyebrow">Force Lab</p>
+          <h2 id="stage-title">How does wheel size change the effort needed?</h2>
+        </div>
+        <p id="investigationQuestion">Change only the wheel radius. Watch the force and distance readings.</p>
+      </div>
+
+      <div class="stage-wrap">
+        <svg id="machineSvg" class="machine-svg" viewBox="0 0 720 520" role="img" aria-labelledby="svgTitle svgDesc">
+          <title id="svgTitle">Wheel and axle simulation</title>
+          <desc id="svgDesc">A labelled wheel and axle with arrows showing effort, load, rotation and travelled distance.</desc>
+          <defs>
+            <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+              <path d="M 0 0 L 12 6 L 0 12 z"></path>
+            </marker>
+            <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+              <path d="M 0 0 L 12 6 L 0 12 z"></path>
+            </marker>
+          </defs>
+
+          <rect class="bench" x="46" y="414" width="628" height="16" rx="3"></rect>
+          <g id="ghostLayer" class="ghost-layer" aria-hidden="true">
+            <circle id="ghostWheel" cx="330" cy="236" r="0"></circle>
+          </g>
+
+          <g id="rotatingGroup">
+            <g id="fanBlades" class="fan-blades" aria-hidden="true">
+              <path id="fanBlade0"></path>
+              <path id="fanBlade1"></path>
+              <path id="fanBlade2"></path>
+              <path id="fanBlade3"></path>
+            </g>
+            <circle id="wheelCircle" class="wheel" cx="330" cy="236" r="128"></circle>
+            <circle id="axleCircle" class="axle" cx="330" cy="236" r="32"></circle>
+            <line id="spokeA" class="spoke" x1="202" y1="236" x2="458" y2="236"></line>
+            <line id="spokeB" class="spoke" x1="330" y1="108" x2="330" y2="364"></line>
+            <circle id="wheelMarker" class="rim-marker" cx="458" cy="236" r="7"></circle>
+            <circle id="axleMarker" class="axle-marker" cx="362" cy="236" r="5"></circle>
+          </g>
+
+          <circle id="wheelTrail" class="trail wheel-trail" cx="330" cy="236" r="128"></circle>
+          <circle id="axleTrail" class="trail axle-trail" cx="330" cy="236" r="32"></circle>
+
+          <path id="effortArrow" class="effort-arrow" marker-end="url(#arrowGreen)"></path>
+          <path id="loadArrow" class="load-arrow" marker-end="url(#arrowPurple)"></path>
+
+          <g id="loadGroup" class="load-group">
+            <line id="ropeLine" class="rope" x1="330" y1="236" x2="572" y2="236"></line>
+            <rect id="loadBlock" x="548" y="304" width="70" height="64" rx="5"></rect>
+            <line id="hangingLine" class="rope" x1="583" y1="236" x2="583" y2="304"></line>
+            <text id="loadBlockText" x="583" y="342" text-anchor="middle">60 N</text>
+          </g>
+
+          <g id="labelLayer" class="labels">
+            <text id="wheelLabel" x="498" y="126">wheel</text>
+            <text id="axleLabel" x="376" y="214">axle</text>
+            <text id="effortLabel" x="118" y="118">effort</text>
+            <text id="loadLabel" x="574" y="286">load</text>
+            <text id="rotationLabel" x="300" y="474">wheel and axle rotate together</text>
+          </g>
+        </svg>
+
+        <div class="motion-bar" aria-label="Motion controls">
+          <button id="runButton" class="action-button primary" type="button">Run</button>
+          <button id="pauseButton" class="action-button" type="button">Pause</button>
+          <button id="stepButton" class="action-button" type="button">Step 1/4 turn</button>
+          <button id="resetButton" class="action-button" type="button">Reset view</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="readout panel" aria-labelledby="readout-title">
+      <div class="panel-heading">
+        <p class="eyebrow">Measurements</p>
+        <h2 id="readout-title">Live readings</h2>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat"><span>Effort on</span><strong id="effortReadout">Wheel</strong></div>
+        <div class="stat"><span>Force ratio</span><strong id="ratioReadout">4x</strong></div>
+        <div class="stat"><span>Required effort</span><strong id="effortForceReadout">15 N</strong></div>
+        <div class="stat"><span>Load/resistance</span><strong id="loadReadout">60 N</strong></div>
+        <div class="stat"><span>Wheel rotations</span><strong id="wheelRotationReadout">1</strong></div>
+        <div class="stat"><span>Axle rotations</span><strong id="axleRotationReadout">1</strong></div>
+        <div class="stat"><span>Wheel path</span><strong id="wheelDistanceReadout">50.3 cm</strong></div>
+        <div class="stat"><span>Axle path</span><strong id="axleDistanceReadout">12.6 cm</strong></div>
+        <div class="stat" data-speed-stat><span>Wheel-rim speed</span><strong id="wheelSpeedReadout">50.3 cm/s</strong></div>
+        <div class="stat" data-speed-stat><span>Axle-surface speed</span><strong id="axleSpeedReadout">12.6 cm/s</strong></div>
+      </div>
+
+      <div id="challengeFeedback" class="feedback" hidden></div>
+      <div id="fairTestFeedback" class="feedback quiet"></div>
+
+      <div id="calculationPanel" class="calculation-panel" hidden>
+        <p><strong>Ideal-machine model:</strong> no friction, bending or slipping.</p>
+        <p data-panel="force challenge">Force ratio = wheel radius / axle radius. Required effort = load x axle radius / wheel radius.</p>
+        <p data-panel="speed">Rim speed = 2 x pi x radius x rotations per second.</p>
+      </div>
+    </aside>
+  </main>
+
+  <section class="trial-section panel" aria-labelledby="trial-title">
+    <div class="trial-heading">
+      <div>
+        <p class="eyebrow">Evidence table</p>
+        <h2 id="trial-title">Collected trials</h2>
+      </div>
+      <div class="table-actions">
+        <button id="addTrialButton" class="action-button primary" type="button">Add trial</button>
+        <button id="downloadCsvButton" class="action-button" type="button">Download CSV</button>
+        <button id="clearTrialsButton" class="action-button" type="button">Clear table</button>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Lab</th>
+            <th scope="col">Wheel</th>
+            <th scope="col">Axle</th>
+            <th scope="col">Ratio</th>
+            <th scope="col">Effort/rate</th>
+            <th scope="col">Wheel path/speed</th>
+            <th scope="col">Axle path/speed</th>
+            <th scope="col">Rotations</th>
+          </tr>
+        </thead>
+        <tbody id="trialBody">
+          <tr class="empty-row"><td colspan="9">Add a trial after each run.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>This simulation uses an ideal wheel-and-axle model. It collects no personal information and stores trial rows only in this browser tab.</p>
+  </footer>
+
+  <script src="model.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
